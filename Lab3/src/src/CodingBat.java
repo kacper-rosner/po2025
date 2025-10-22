@@ -1,3 +1,5 @@
+package src;
+
 public class CodingBat {
     public static String firstHalf(String str) {
         char[] a= str.toCharArray();
