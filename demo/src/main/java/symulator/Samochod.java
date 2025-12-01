@@ -24,6 +24,9 @@ public class Samochod {
     private int nrRejest;
     private String model;
     private int predkoscmax;
+    public String getName(){
+        return Integer.toString(nrRejest) + " " + model;
+    };
 
     public Samochod(int predkoscmax, String model, int nrRejest, boolean stanWlaczenia, Pozycja pozycja, Silnik silnik, SkrzyniaBiegow skrzyniaBiegow) {
         this.predkoscmax = predkoscmax;

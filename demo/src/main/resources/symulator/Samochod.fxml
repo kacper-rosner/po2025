@@ -40,7 +40,7 @@
 
                 <GridPane hgap="5.0" vgap="5.0">
                     <Label text="Typ samochodu:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                    <ComboBox fx:id="tools" GridPane.columnIndex="1" GridPane.rowIndex="4" promptText="Wybierz typ samochodu: " />
+                    <ComboBox fx:id="chooseCar" GridPane.columnIndex="1" GridPane.rowIndex="4" promptText="Wybierz samochód: " />
                     <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                          <children>
                             <Button fx:id="dodaj_nowy" mnemonicParsing="false" text="Dodaj_nowy" GridPane.columnIndex="1" GridPane.rowIndex="5" onAction="#dodaj_nowy_Button"/>
