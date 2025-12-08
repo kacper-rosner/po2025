@@ -2,6 +2,8 @@ package symulator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
@@ -9,7 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.*;
 
 public class simcontroller {
@@ -37,8 +41,14 @@ public class simcontroller {
         Sprzeglo sprzeglo2 = new Sprzeglo("abc","def",1000,1000,"1");
         Silnik silnik1 = new Silnik ("abc","def","1",1000,1000,10000);
         Silnik silnik2 = new Silnik ("abc","def","1",1000,1000,10000);
+        silniki.add(silnik1);
+        silniki.add(silnik2);
+
         SkrzyniaBiegow skrzynia1 = new SkrzyniaBiegow("abc","def","1",1000,1000,1,8,sprzeglo1);
         SkrzyniaBiegow skrzynia2 = new SkrzyniaBiegow("abc","def","1",1000,1000,1,8,sprzeglo2);
+        skrzynie.add(skrzynia1);
+        skrzynie.add(skrzynia2);
+
         Samochod testCar1 = new Samochod(120, "Model A", 1234, false, new Pozycja(0,0), silnik1, skrzynia1);
         Samochod testCar2 = new Samochod(150, "Model B", 5678, false, new Pozycja(0,0), silnik2, skrzynia2);
         samochody.add(testCar1);
@@ -48,7 +58,8 @@ public class simcontroller {
     }
     @FXML private ImageView carImageView;
     @FXML private Button dodaj_nowy;
-    @FXML    private void dodaj_nowy_Button(){
+//    public void dodaj_nowy_Button(String model, String reg, int weight, ){};
+    @FXML    public void dodaj_nowy_Button(){
         int predkoscmax = 100;
         String model = carModelField.getText();
         int nrRejest = Integer.parseInt(carRegField.getText());
@@ -106,7 +117,14 @@ public class simcontroller {
     @FXML    private TextField engineRpmField;
 
     @FXML    private ComboBox<Samochod> chooseCar;
-    private ObservableList<Samochod> samochody =  FXCollections.observableArrayList();
+    public ObservableList<Samochod> samochody =  FXCollections.observableArrayList();
+    public ObservableList<Silnik> silniki =  FXCollections.observableArrayList();
+    public ObservableList<SkrzyniaBiegow> skrzynie =  FXCollections.observableArrayList();
+
+    public void setSamochody(ObservableList<Samochod> abc){this.samochody = abc;};
+    public ObservableList<Samochod> getSamochody(){
+        return this.samochody;
+    };
     void initializeComboBoxChooseCar() {
         chooseCar.setConverter(new SamochodConverter());
         chooseCar.setItems(samochody);
@@ -115,5 +133,17 @@ public class simcontroller {
             refresh();
         });
     }
-
+    public void openAddCarWindow() throws IOException {
+        FXMLLoader loader = new
+                FXMLLoader(getClass().getResource("DodajSamochod.fxml"));
+        javafx.scene.Parent root = loader.load();
+        DodajSamochodController controllerDodaj = loader.getController();
+        controllerDodaj.setSamochody(this.samochody);
+        controllerDodaj.setSilniki(this.silniki);
+        controllerDodaj.setSkrzynie(this.skrzynie);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Dodaj nowy samochód");
+        stage.show();
+    }
 }

@@ -17,6 +17,5 @@ public class Silnik extends Komponent
         this.obroty = 2000;
     }
 
-    public int getRpm() {return this.obroty;
-    }
+    public int getRpm() {return this.maxobroty;}
 }
