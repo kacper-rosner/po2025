@@ -14,13 +14,38 @@ import java.util.*;
 
 public class simcontroller {
 
-    private ArrayList<Samochod> listasamochodow=new ArrayList<>();
+//    private ArrayList<Samochod> listasamochodow=new ArrayList<>();
     private Samochod curr_samochod;
 
     void refresh(){
-        carModelField.setText(String.valueOf(curr_samochod.get);
+        carModelField.setText(String.valueOf(curr_samochod.getModel()));
+        carRegField.setText(String.valueOf(curr_samochod.getReg()));
+        carWeightField.setText(String.valueOf(curr_samochod.getWaga()));
+        carSpeedField.setText(String.valueOf(curr_samochod.getSpeed()));
+        engineNameField.setText(String.valueOf(curr_samochod.getEngName()));
+        enginePriceField.setText(String.valueOf(curr_samochod.getEngPrice()));
+        engineRpmField.setText(String.valueOf(curr_samochod.getEngRpm()));
+        engineWeightField.setText(String.valueOf(curr_samochod.getEngWeight()));
+        gearboxNameField.setText(String.valueOf(curr_samochod.getGearName()));
+        gearboxCurrentGearField.setText(String.valueOf(curr_samochod.getGearCurr()));
+        gearboxPriceField.setText(String.valueOf(curr_samochod.getGearPrice()));
+        gearboxWeightField.setText(String.valueOf(curr_samochod.getGearWeight()));
     };
-
+    @FXML
+    public void initialize(){
+        Sprzeglo sprzeglo1 = new Sprzeglo("abc","def",1000,1000,"1");
+        Sprzeglo sprzeglo2 = new Sprzeglo("abc","def",1000,1000,"1");
+        Silnik silnik1 = new Silnik ("abc","def","1",1000,1000,10000);
+        Silnik silnik2 = new Silnik ("abc","def","1",1000,1000,10000);
+        SkrzyniaBiegow skrzynia1 = new SkrzyniaBiegow("abc","def","1",1000,1000,1,8,sprzeglo1);
+        SkrzyniaBiegow skrzynia2 = new SkrzyniaBiegow("abc","def","1",1000,1000,1,8,sprzeglo2);
+        Samochod testCar1 = new Samochod(120, "Model A", 1234, false, new Pozycja(0,0), silnik1, skrzynia1);
+        Samochod testCar2 = new Samochod(150, "Model B", 5678, false, new Pozycja(0,0), silnik2, skrzynia2);
+        samochody.add(testCar1);
+        samochody.add(testCar2);
+        initializeComboBoxChooseCar();
+        curr_samochod = testCar1;
+    }
     @FXML private ImageView carImageView;
     @FXML private Button dodaj_nowy;
     @FXML    private void dodaj_nowy_Button(){
@@ -34,7 +59,7 @@ public class simcontroller {
         SkrzyniaBiegow skrzyniaBiegow=new SkrzyniaBiegow("def",model,gearboxNameField.getText(),Integer.parseInt(gearboxWeightField.getText()),Integer.parseInt(gearboxPriceField.getText()),Integer.parseInt(gearboxCurrentGearField.getText()),10,sprzeglo);
 
         Samochod samochod = new Samochod(predkoscmax,model,nrRejest,stanwlaczenia,pozycja,silnik,skrzyniaBiegow);
-        listasamochodow.add(samochod);
+        samochody.add(samochod);
     };
     @FXML    private Button usun_samochod;
     @FXML    private void usun_samochod_Button(){
@@ -83,6 +108,7 @@ public class simcontroller {
     @FXML    private ComboBox<Samochod> chooseCar;
     private ObservableList<Samochod> samochody =  FXCollections.observableArrayList();
     void initializeComboBoxChooseCar() {
+        chooseCar.setConverter(new SamochodConverter());
         chooseCar.setItems(samochody);
         chooseCar.setOnAction(event -> {
             curr_samochod =chooseCar.getSelectionModel().getSelectedItem();

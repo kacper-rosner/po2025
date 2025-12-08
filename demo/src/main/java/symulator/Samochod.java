@@ -16,6 +16,7 @@ public class Samochod {
         sum+=this.silnik.getWaga();
         sum+=this.skrzyniaBiegow.getWaga();
         return sum;};
+    public String getModel(){return this.model;};
     //public void getAktPredkosc(){return predkosc;};
     private SkrzyniaBiegow skrzyniaBiegow;
     private Silnik silnik;
@@ -36,5 +37,27 @@ public class Samochod {
         this.aktualnaPozycja = pozycja;
         this.silnik = silnik;
         this.skrzyniaBiegow = skrzyniaBiegow;
+    }
+
+    public int getReg() {return this.nrRejest;}
+
+    public int getSpeed() {return this.predkoscmax;}
+
+    public String getEngName() {return this.silnik.getnazwa();  }
+
+    public int getEngPrice() {return this.silnik.getCena();    }
+
+    public int getEngRpm() {return this.silnik.getRpm();    }
+
+    public int getEngWeight() { return this.silnik.getWaga();    }
+
+
+    public String getGearName() {return this.skrzyniaBiegow.getnazwa();   }
+
+    public int getGearCurr() {return this.skrzyniaBiegow.aktualnyBieg;    }
+
+    public int getGearWeight() {return this.skrzyniaBiegow.getWaga();    }
+
+    public int getGearPrice() {return this.skrzyniaBiegow.getCena();
     }
 }
