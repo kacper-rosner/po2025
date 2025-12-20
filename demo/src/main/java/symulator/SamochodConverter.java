@@ -8,7 +8,7 @@ public class SamochodConverter extends StringConverter<Samochod> {
     public String toString(Samochod samochod) {
         if (samochod == null) {
             return ""; }
-        return samochod.getName();
+        return samochod.getObjName();
     }
     @Override
     public Samochod fromString(String string) {

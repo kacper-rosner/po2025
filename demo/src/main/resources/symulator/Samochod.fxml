@@ -18,7 +18,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<BorderPane fx:id="mainPane" fx:controller="symulator.simcontroller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPane" fx:controller="symulator.SimController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -123,9 +123,7 @@
                 <Label layoutX="10.0" layoutY="35.0" text="Car" />
 
                 <ImageView fx:id="carImageView" fitHeight="30.0" fitWidth="50.0" layoutX="10.0" layoutY="50.0" preserveRatio="true">
-                    <image>
-                        <Image url="@abc.png" />
-                    </image>
+
                 </ImageView>
 
             </children>

@@ -8,5 +8,8 @@ public class Sprzeglo extends Komponent {
     public void wcisnij(){this.stanSprzegla=true;};
     public void zwolnij(){this.stanSprzegla=false;};
     private boolean stanSprzegla;
-
+    public boolean getStanSprzegla(){return this.stanSprzegla;};
+    public void setStanSprzegla(boolean a){
+        System.err.println("Sprzeglo jest "+a);
+        this.stanSprzegla=a;};
 }

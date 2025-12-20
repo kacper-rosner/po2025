@@ -2,11 +2,25 @@ package symulator;
 import symulator.Sprzeglo;
 
 public class SkrzyniaBiegow extends Komponent {
-    protected int aktualnyBieg;
+    public int aktualnyBieg;
     private int iloscBiegow;
-    void zwiekszBieg(){if(aktualnyBieg<iloscBiegow){aktualnyBieg+=1;}};
+    void zwiekszBieg(){if(aktualnyBieg<iloscBiegow){
+        System.err.println(this.iloscBiegow);
+        this.sprzeglo.setStanSprzegla(true);
+//        try {wait(300);}
+//        catch(InterruptedException e){}
+        aktualnyBieg+=1;
+        this.sprzeglo.setStanSprzegla(false);
+        }
+    };
     void zmniejszBieg(){
+        this.sprzeglo.setStanSprzegla(true);
+//        try {wait(300);}
+//        catch(InterruptedException e){}
+        System.err.println("zmniejszenie Biegow");
         if(aktualnyBieg>1){aktualnyBieg -=1;}
+        else{System.err.println("aktualnyBieg: " + aktualnyBieg);}
+        this.sprzeglo.setStanSprzegla(false);
     };
     private Sprzeglo sprzeglo;
     public int getGear(){return this.aktualnyBieg;};

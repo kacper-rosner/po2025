@@ -3,7 +3,6 @@ package symulator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -36,7 +35,7 @@ public class DodajSamochodController {
         public Label helloLabel;
         public Button dodaj_nowy;
         @FXML private void dodaj_nowy () {
-            int predkoscmax = 100;
+            int predkoscmax = Integer.parseInt(carSpeedField.getText());
             String model = carModelField.getText();
             int nrRejest = Integer.parseInt(carRegField.getText());
             boolean stanwlaczenia = false;
@@ -46,6 +45,7 @@ public class DodajSamochodController {
             System.out.println("Dodano samochod");
             Stage stage = (Stage) dodaj_nowy.getScene().getWindow();
             stage.close();
+
         }
         ;
         public Button anuluj_but;
@@ -71,7 +71,7 @@ public class DodajSamochodController {
         @FXML private void dodajNowyGear () {
             String model = "123";
             Sprzeglo sprzeglo = new Sprzeglo("def", model, 1000, 1000, "def");
-            SkrzyniaBiegow skrzyniaBiegow = new SkrzyniaBiegow("def", model, gearboxNameField.getText(), Integer.parseInt(gearboxWeightField.getText()), Integer.parseInt(gearboxPriceField.getText()), Integer.parseInt(gearboxCurrentGearField.getText()), 10, sprzeglo);
+            SkrzyniaBiegow skrzyniaBiegow = new SkrzyniaBiegow("def", model, gearboxNameField.getText(), Integer.parseInt(gearboxWeightField.getText()), Integer.parseInt(gearboxPriceField.getText()), 1, Integer.parseInt(gearboxCurrentGearField.getText()), sprzeglo);
             skrzynieC.add(skrzyniaBiegow);
         }
         ;
@@ -112,7 +112,7 @@ public class DodajSamochodController {
         void refresh_eng () {
             engineNameField.setText(String.valueOf(curr_eng.getnazwa()));
             enginePriceField.setText(String.valueOf(curr_eng.getCena()));
-            engineRpmField.setText(String.valueOf(curr_eng.getRpm()));
+            engineRpmField.setText(String.valueOf(curr_eng.getMaxRpm()));
             engineWeightField.setText(String.valueOf(curr_eng.getWaga()));
 
         }
