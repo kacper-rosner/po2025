@@ -43,6 +43,7 @@ public class DodajSamochodController {
             Samochod samochod = new Samochod(predkoscmax, model, nrRejest, stanwlaczenia, pozycja, curr_eng, curr_gear);
             samochodyC.add(samochod);
             System.out.println("Dodano samochod");
+            this.simController.addImg(samochod);
             Stage stage = (Stage) dodaj_nowy.getScene().getWindow();
             stage.close();
 
@@ -91,6 +92,8 @@ public class DodajSamochodController {
         //private ObservableList<SkrzyniaBiegow> skrzynieC =  FXCollections.observableArrayList();
         private ObservableList<Silnik> silnikiC;
         private ObservableList<SkrzyniaBiegow> skrzynieC;
+        private SimController simController;
+        public void setSimController(SimController simController) {this.simController=simController;}
 
         void initializeComboBoxChooseEng () {
             chooseEng.setConverter(new SilnikConverter());

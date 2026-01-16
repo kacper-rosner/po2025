@@ -1,5 +1,7 @@
 package symulator;
 
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 
 public class Samochod implements Runnable {
@@ -68,7 +70,7 @@ public class Samochod implements Runnable {
                         odleglosc;
                 this.pozycja.x += dx;
                 this.pozycja.y += dy;
-            if(odleglosc<5.0){
+            if(odleglosc<4*this.predkosc){
                 this.pozycja.x=this.cel.x;
                 this.pozycja.y=this.cel.y;
             dy=0;
@@ -100,9 +102,12 @@ public class Samochod implements Runnable {
         this.cel = cel;
     }
     public Pozycja getCel(){return this.cel;};
-    private String imgId;
-    public String getImgId() {return imgId;}
-    public void setImgId(String imgId) {this.imgId = imgId;}
+//    private String imgId;
+//    public String getImgId() {return imgId;}
+//    public void setImgId(String imgId) {this.imgId = imgId;}
+    private ImageView img;
+    public ImageView getImg(){return this.img;};
+    public void setImg (ImageView img){this.img = img;};
 
     public String getObjName(){
         return Integer.toString(nrRejest) + " " + model;

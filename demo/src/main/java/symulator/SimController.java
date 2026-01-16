@@ -22,6 +22,7 @@ import java.io.IOException;
 public class SimController implements Listener {
     @Override
     public void update(){refresh();};
+
     @FXML private Pane mapPane;
     @FXML private ImageView carImageView;
     @FXML private Button dodaj_nowy;
@@ -44,11 +45,11 @@ public class SimController implements Listener {
         curr_samochod.exists=false;
         Platform.runLater(() -> {
 
-            javafx.scene.Node nodeToRemove = mapPane.lookup("#" + curr_samochod.getImgId());
+//            javafx.scene.Node nodeToRemove = mapPane.lookup("#" + curr_samochod.getImgId());
 
-            if (nodeToRemove != null) {
-                mapPane.getChildren().remove(nodeToRemove);
-            }
+//            if (nodeToRemove != null) {
+                mapPane.getChildren().remove(curr_samochod.getImg());
+//            }
         });
         samochody.remove(curr_samochod);
     };
@@ -147,35 +148,34 @@ public class SimController implements Listener {
     }
 
     void refresh(){
-        if (samochody.size()>currCarrListLength){
-            this.addImg(samochody.getLast());
-        }
 
-        if (curr_samochod == null || samochody.isEmpty()) {
-            return; // WAŻNE ZABEZPIECZENIE
-        }
-        carModelField.setText(String.valueOf(curr_samochod.getModel()));
-        carRegField.setText(String.valueOf(curr_samochod.getReg()));
-        carWeightField.setText(String.valueOf(curr_samochod.getWaga()));
-        carSpeedField.setText(String.valueOf(curr_samochod.getPredkosc()));
-        engineNameField.setText(String.valueOf(curr_samochod.getEngName()));
-        enginePriceField.setText(String.valueOf(curr_samochod.getEngPrice()));
-        engineRpmField.setText(String.valueOf(curr_samochod.getEngRpm()));
-        engineWeightField.setText(String.valueOf(curr_samochod.getEngWeight()));
-        gearboxNameField.setText(String.valueOf(curr_samochod.getGearName()));
-        gearboxCurrentGearField.setText(String.valueOf(curr_samochod.getGearCurr()));
-        gearboxPriceField.setText(String.valueOf(curr_samochod.getGearPrice()));
-        gearboxWeightField.setText(String.valueOf(curr_samochod.getGearWeight()));
 
-//         refresh pozycji samochodu
+
+
 
         Platform.runLater(() -> {
+
             if (curr_samochod == null) {return;}
             else {
+
                 try {
-                    ImageView carIcon = (ImageView) mapPane.lookup("#" + curr_samochod.getImgId());
-                    carIcon.setTranslateX(curr_samochod.getPozycja().x);
-                    carIcon.setTranslateY(curr_samochod.getPozycja().y);
+                    carModelField.setText(String.valueOf(curr_samochod.getModel()));
+                    carRegField.setText(String.valueOf(curr_samochod.getReg()));
+                    carWeightField.setText(String.valueOf(curr_samochod.getWaga()));
+                    carSpeedField.setText(String.valueOf(curr_samochod.getPredkosc()));
+                    engineNameField.setText(String.valueOf(curr_samochod.getEngName()));
+                    enginePriceField.setText(String.valueOf(curr_samochod.getEngPrice()));
+                    engineRpmField.setText(String.valueOf(curr_samochod.getEngRpm()));
+                    engineWeightField.setText(String.valueOf(curr_samochod.getEngWeight()));
+                    gearboxNameField.setText(String.valueOf(curr_samochod.getGearName()));
+                    gearboxCurrentGearField.setText(String.valueOf(curr_samochod.getGearCurr()));
+                    gearboxPriceField.setText(String.valueOf(curr_samochod.getGearPrice()));
+                    gearboxWeightField.setText(String.valueOf(curr_samochod.getGearWeight()));
+
+
+                    curr_samochod.getImg().setTranslateX(curr_samochod.getPozycja().x);
+                    curr_samochod.getImg().setTranslateY(curr_samochod.getPozycja().y);
+
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -200,6 +200,7 @@ public class SimController implements Listener {
         });
     }
     public void openAddCarWindow() throws IOException {
+        System.out.println("open add car");
         FXMLLoader loader = new
                 FXMLLoader(getClass().getResource("DodajSamochod.fxml"));
         javafx.scene.Parent root = loader.load();
@@ -207,12 +208,22 @@ public class SimController implements Listener {
         controllerDodaj.setSamochody(this.samochody);
         controllerDodaj.setSilniki(this.silniki);
         controllerDodaj.setSkrzynie(this.skrzynie);
+        controllerDodaj.setSimController(this);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Dodaj nowy samochód");
         stage.show();
+        boolean inAdding = true;
+//        while(inAdding){
+//            if (samochody.size()>currCarrListLength){
+//                 this.addImg(samochody.getLast());
+//            }
+//        }
     }
-    private void addImg(Samochod samochod){
+    public void addImg(Samochod samochod){
+        Platform.runLater(() -> {
+
+
         ImageView nowySamochodImgV = new ImageView();
         Random random=new Random();
         try{
@@ -223,11 +234,13 @@ public class SimController implements Listener {
             nowySamochodImgV.setId("carIcon_" + String.valueOf(random.nextInt(10000))+(mapPane.getChildren().size()));
             nowySamochodImgV.setLayoutX(samochod.getPozycja().x);
             nowySamochodImgV.setLayoutY(samochod.getPozycja().y);
-            samochod.setImgId(nowySamochodImgV.getId());
-            Platform.runLater(() -> {
-                mapPane.getChildren().add(nowySamochodImgV);
-            });
+            samochod.setImg(nowySamochodImgV);
+//            samochod.setImgId(nowySamochodImgV.getId());
+//            Platform.runLater(() -> {
+//                mapPane.getChildren().add(nowySamochodImgV);
+//            });
+            mapPane.getChildren().add(nowySamochodImgV);
         }
         catch (NullPointerException e){System.out.println(e);return;}
-    }
+    });}
 }
